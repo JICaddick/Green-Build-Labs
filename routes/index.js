@@ -1,5 +1,5 @@
 var express = require('express');
-var users = require('./users');
+var users = require('./user');
 var router = express.Router();
 
 const app = express();
