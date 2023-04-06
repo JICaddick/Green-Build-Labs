@@ -15,7 +15,7 @@ router.get('/getusers', async function(req, res) {
 });
 
 // GET route to get a user by id.
-router.get('/:id', async function(req, res) {
+router.get('/:id/getuserbyid', async function(req, res) {
   try { 
     const sqlQuery = 'SELECT id, email, password, created_at FROM user WHERE id=?';
     const rows = await pool.query(sqlQuery, req.params.id);
@@ -29,12 +29,12 @@ router.get('/:id', async function(req, res) {
 // POST route to create new user
 router.post('/register', async function(req, res) {
   try {
-    const {email, password} = req.body;
+    const {email, password, role} = req.body;
 
     const encryptedPassword = await bcrypt.hash(password,10)
     
-    const sqlQuery = 'INSERT INTO user (email, password) VALUES (?, ?)';
-    const result = await pool.query(sqlQuery, [email, encryptedPassword]);
+    const sqlQuery = 'INSERT INTO user (email, password, role) VALUES (?, ?, ?)';
+    const result = await pool.query(sqlQuery, [email, encryptedPassword, role]);
     res.status(200).json(result);
   } catch (error) {
     res.status(400).send(error.message)
@@ -44,7 +44,7 @@ router.post('/register', async function(req, res) {
 // PUT route to update user info
 router.put('/:id/updateuser', async function(req, res) {
   try {
-    const {email, password} = req.body;
+    const {email, password, role} = req.body;
     const {id} = req.params;
 
     // check if user exists
@@ -58,15 +58,15 @@ router.put('/:id/updateuser', async function(req, res) {
     const encryptedPassword = await bcrypt.hash(password,10);
 
     // update user info in the database
-    const updateQuery = 'UPDATE user SET email=?, password=? WHERE id=?';
-    const updateResult = await pool.query(updateQuery, [email, encryptedPassword, id]);
+    const updateQuery = 'UPDATE user SET email=?, password=?, role=? WHERE id=?';
+    const updateResult = await pool.query(updateQuery, [email, encryptedPassword, role, id]);
     res.status(200).send(`User with id ${id} successfully updated`);
   } catch (error) {
     res.status(400).send(error.message);
   }
 });
 
-router.delete('/:id', async function(req, res) {
+router.delete('/:id/deleteuser', async function(req, res) {
   try {
     const { id } = req.params;
 

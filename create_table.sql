@@ -3,6 +3,7 @@ CREATE TABLE demo_users.`user` (
 	email varchar(100) NOT NULL,
 	password varchar(100) NOT NULL,
 	created_at DATETIME DEFAULT CURRENT_TIMESTAMP NULL,
+	role varchar(100) NOT NULL,
 	CONSTRAINT user_PK PRIMARY KEY (id)
 )
 ENGINE=InnoDB
