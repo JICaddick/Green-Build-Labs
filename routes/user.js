@@ -2,6 +2,11 @@ var express = require('express');
 var router = express.Router();
 const pool = require('../helpers/database');
 const bcrypt = require('bcrypt');
+// const { getPermissions } = require('./helpers/permissions');
+
+// // assuming roleId is the ID of the role whose permissions you want to retrieve
+// const permissions = await getPermissions(userId);
+
 
 //GET route to get all users.
 router.get('/getusers', async function(req, res) {
@@ -86,9 +91,7 @@ router.delete('/:id/deleteuser', async function(req, res) {
   }
 });
 
-
-
-// internally handled authentication
+// // internally handled authentication
 // router.post('/login', async function(req,res) {
 //   try {
 //       const {id,password} = req.body;
@@ -110,4 +113,34 @@ router.delete('/:id/deleteuser', async function(req, res) {
 module.exports = router;
 
 
-// could have users get, update, delete etc. Then you could have materials.js.
+// // could have users get, update, delete etc. Then you could have materials.js.
+
+// router.post('/login', async function(req, res) {
+//   try {
+//     const { email, password } = req.body;
+
+//     const sqlGetUser = 'SELECT password, role FROM user WHERE email=?';
+//     const rows = await pool.query(sqlGetUser, email);
+
+//     if (rows.length > 0) {
+//       const storedPasswordHash = rows[0].password;
+//       const isValidPassword = await bcrypt.compare(password, storedPasswordHash);
+
+//       if (isValidPassword) {
+//         // Set user role based on the retrieved value from the database
+//         const userRole = rows[0].role;
+
+//         // Generate JWT token with user role and any other necessary information
+//         const token = jwt.sign({ email, role: userRole }, process.env.JWT_SECRET);
+
+//         res.status(200).json({ token });
+//       } else {
+//         res.status(401).json({ error: 'Invalid password' });
+//       }
+//     } else {
+//       res.status(401).json({ error: 'User not found' });
+//     }
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
