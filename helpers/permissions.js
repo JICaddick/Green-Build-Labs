@@ -70,11 +70,9 @@ async function setPermissions() {
     
   } catch (error) {
     console.error(error);
-  } finally {
-    pool.end();
   }
 }
 
-setPermissions();
+// setPermissions(); Removed as we're calling it in other places. 
 
 module.exports = { setPermissions };

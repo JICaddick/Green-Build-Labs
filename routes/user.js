@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const pool = require('../helpers/database');
 const bcrypt = require('bcrypt');
-// const { getPermissions } = require('./helpers/permissions');
+// const { setPermissions } = require('./helpers/permissions');
 
 // // assuming roleId is the ID of the role whose permissions you want to retrieve
 // const permissions = await getPermissions(userId);
@@ -11,7 +11,7 @@ const bcrypt = require('bcrypt');
 //GET route to get all users.
 router.get('/getusers', async function(req, res) {
   try { 
-    const sqlQuery = 'SELECT id, email, password, created_at FROM user';
+    const sqlQuery = 'SELECT id, email, password, created_at, role FROM users';
     const rows = await pool.query(sqlQuery);
     res.status(200).json(rows);
   } catch (error) {
@@ -22,7 +22,7 @@ router.get('/getusers', async function(req, res) {
 // GET route to get a user by id.
 router.get('/:id/getuserbyid', async function(req, res) {
   try { 
-    const sqlQuery = 'SELECT id, email, password, created_at FROM user WHERE id=?';
+    const sqlQuery = 'SELECT id, email, password, created_at, role FROM users WHERE id=?';
     const rows = await pool.query(sqlQuery, req.params.id);
     res.status(200).json(rows);
   } catch (error) {
@@ -38,13 +38,18 @@ router.post('/register', async function(req, res) {
 
     const encryptedPassword = await bcrypt.hash(password,10)
     
-    const sqlQuery = 'INSERT INTO user (email, password, role) VALUES (?, ?, ?)';
+    const sqlQuery = 'INSERT INTO users (email, password, role) VALUES (?, ?, ?)';
     const result = await pool.query(sqlQuery, [email, encryptedPassword, role]);
+
+    // Call setPermissions function to set user permissions - ***********Why is email being passed in here? Shouldn't it be the user ID?***************** 
+    await setPermissions(email, role);
+
     res.status(200).json(result);
   } catch (error) {
     res.status(400).send(error.message)
   }
 });
+
 
 // PUT route to update user info
 router.put('/:id/updateuser', async function(req, res) {
@@ -53,7 +58,7 @@ router.put('/:id/updateuser', async function(req, res) {
     const {id} = req.params;
 
     // check if user exists
-    const checkQuery = 'SELECT id FROM user WHERE id=?';
+    const checkQuery = 'SELECT id FROM users WHERE id=?';
     const checkResult = await pool.query(checkQuery, [id]);
     if (checkResult.length === 0) {
       return res.status(404).send(`User with id ${id} not found`);
@@ -63,7 +68,7 @@ router.put('/:id/updateuser', async function(req, res) {
     const encryptedPassword = await bcrypt.hash(password,10);
 
     // update user info in the database
-    const updateQuery = 'UPDATE user SET email=?, password=?, role=? WHERE id=?';
+    const updateQuery = 'UPDATE users SET email=?, password=?, role=? WHERE id=?';
     const updateResult = await pool.query(updateQuery, [email, encryptedPassword, role, id]);
     res.status(200).send(`User with id ${id} successfully updated`);
   } catch (error) {
@@ -76,14 +81,14 @@ router.delete('/:id/deleteuser', async function(req, res) {
     const { id } = req.params;
 
     // check if user exists
-    const checkQuery = 'SELECT id FROM user WHERE id=?';
+    const checkQuery = 'SELECT id FROM users WHERE id=?';
     const checkResult = await pool.query(checkQuery, [id]);
     if (checkResult.length === 0) {
       return res.status(404).send(`User with id ${id} not found`);
     }
 
     // delete user from database
-    const deleteQuery = 'DELETE FROM user WHERE id=?';
+    const deleteQuery = 'DELETE FROM users WHERE id=?';
     await pool.query(deleteQuery, [id]);
     res.status(200).send(`User with id ${id} successfully deleted`);
   } catch (error) {
