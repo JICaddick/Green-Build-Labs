@@ -2,11 +2,6 @@ var express = require('express');
 var router = express.Router();
 const pool = require('../helpers/database');
 const bcrypt = require('bcrypt');
-const { setPermissions } = require('../helpers/permissions');
-// Do we need to get permissions before we can set them? ********
-// Do we need either of these? ********
-// const permissions = await setPermissions(userId);
-// permissions.setPermissions();
 
 //GET route to get all users.
 router.get('/getusers', async function(req, res) {
@@ -40,9 +35,6 @@ router.post('/register', async function(req, res) {
     
     const sqlQuery = 'INSERT INTO users (email, password, role) VALUES (?, ?, ?)';
     const result = await pool.query(sqlQuery, [email, encryptedPassword, role]);
-
-    // Call setPermissions function to set user permissions - Fairly sure we don't need more params here *****
-    await setPermissions();
 
     res.status(200).json(result);
   } catch (error) {
@@ -97,7 +89,7 @@ router.delete('/:id/deleteuser', async function(req, res) {
   }
 });
 
-// // internally handled authentication
+// internally handled authentication
 // router.post('/login', async function(req,res) {
 //   try {
 //       const {id,password} = req.body;
@@ -116,10 +108,8 @@ router.delete('/:id/deleteuser', async function(req, res) {
 //   }
 // })
 
-module.exports = router;
 
-
-// // could have users get, update, delete etc. Then you could have materials.js.
+// could have users get, update, delete etc. Then you could have materials.js.
 
 // router.post('/login', async function(req, res) {
 //   try {
