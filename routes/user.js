@@ -2,11 +2,11 @@ var express = require('express');
 var router = express.Router();
 const pool = require('../helpers/database');
 const bcrypt = require('bcrypt');
-// const { setPermissions } = require('./helpers/permissions');
-
-// // assuming roleId is the ID of the role whose permissions you want to retrieve
-// const permissions = await getPermissions(userId);
-
+const { setPermissions } = require('../helpers/permissions');
+// Do we need to get permissions before we can set them? ********
+// Do we need either of these? ********
+// const permissions = await setPermissions(userId);
+// permissions.setPermissions();
 
 //GET route to get all users.
 router.get('/getusers', async function(req, res) {
@@ -41,8 +41,8 @@ router.post('/register', async function(req, res) {
     const sqlQuery = 'INSERT INTO users (email, password, role) VALUES (?, ?, ?)';
     const result = await pool.query(sqlQuery, [email, encryptedPassword, role]);
 
-    // Call setPermissions function to set user permissions - ***********Why is email being passed in here? Shouldn't it be the user ID?***************** 
-    await setPermissions(email, role);
+    // Call setPermissions function to set user permissions - Fairly sure we don't need more params here *****
+    await setPermissions();
 
     res.status(200).json(result);
   } catch (error) {
@@ -68,6 +68,7 @@ router.put('/:id/updateuser', async function(req, res) {
     const encryptedPassword = await bcrypt.hash(password,10);
 
     // update user info in the database
+    // why is updateResult not used?
     const updateQuery = 'UPDATE users SET email=?, password=?, role=? WHERE id=?';
     const updateResult = await pool.query(updateQuery, [email, encryptedPassword, role, id]);
     res.status(200).send(`User with id ${id} successfully updated`);
