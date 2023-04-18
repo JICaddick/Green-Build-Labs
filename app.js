@@ -5,9 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
-// const permissions = require('./helpers/permissions');
-// // call the setPermissions() function to set permissions for all roles
-// permissions.setPermissions();
 
 dotenv.config( {path: '.env'})
 
