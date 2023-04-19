@@ -7,6 +7,7 @@ var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
 var projectRouter = require('./routes/project');
 var materialsRouter = require('./routes/materials');
+var systemPermissionsRouter = require('./routes/systemPermissions');
 
 dotenv.config( {path: '.env'})
 
@@ -27,6 +28,7 @@ app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/project', projectRouter);
 app.use('/materials', materialsRouter);
+app.use('/systemPermissions', systemPermissionsRouter);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
