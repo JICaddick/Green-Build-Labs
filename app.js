@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
+var projectRouter = require('./routes/project');
 
 dotenv.config( {path: '.env'})
 
@@ -23,6 +24,7 @@ app.use(express.static('public')) //Why dis commented out? GPT - if you uncommen
 //Routes
 app.use('/', indexRouter);
 app.use('/user', userRouter);
+app.use('/project', projectRouter);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);

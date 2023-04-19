@@ -89,6 +89,8 @@ router.delete('/:id/deleteuser', async function(req, res) {
   }
 });
 
+module.exports = router;
+
 // internally handled authentication
 // router.post('/login', async function(req,res) {
 //   try {
