@@ -26,25 +26,12 @@ router.get('/:id/getsystempermissionsbyid', async function(req, res) {
 });
 
 // POST route to create new systemPermissions.
-// Since there can only ever be one user linked with one project sys_perms doesn't need its own id. To manage a user's permissions, we can just update the sys_perms table with the user's id and the project id. The user would click on their project and then be able to see the users on that project. They would then be able to click on a user and update their permissions. the permissions are as follows:
-// has_read_access: true,
-// can_create_project: true,
-// can_edit_project: true,
-// can_delete_project: true,
-// can_create_multiple_projects: true,
-// can_create_contractor_team_users: true,
-// can_delete_contractor_team_user: true
-// the commented out code here was a needless entry- values will be set later in the code using roles so we don't need to set them here- for now they're defaulting to true.
 router.post('/createsystempermissions', async function(req, res) {
   try {
     const {user_id, project_id} = req.body;
 
     const sqlQuery = 'INSERT INTO system_permissions (user_id, project_id) VALUES (?, ?)';
     const result = await pool.query(sqlQuery, [user_id, project_id]);
-
-
-    // const sqlQuery = 'INSERT INTO system_permissions (user_id, project_id, has_read_access, can_create_project, can_edit_project, can_delete_project, can_create_multiple_projects, can_create_contractor_team_users, can_delete_contractor_team_user) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    // const result = await pool.query(sqlQuery, [user_id, project_id, has_read_access, can_create_project, can_edit_project, can_delete_project, can_create_multiple_projects, can_create_contractor_team_users, can_delete_contractor_team_user]);
 
     res.status(200).json(result);
   } catch (error) {
@@ -53,6 +40,64 @@ router.post('/createsystempermissions', async function(req, res) {
 });
 
 // PUT route to update a systemPermissions by id.
+router.put('/:id/updatesystempermissions', async function(req, res) {
+  try {
+    const { id } = req.params;
+    const { ...updates } = req.body; // Use spread operator to get all fields from req.body
+
+    // Check if systemPermissions exists
+    const checkQuery = 'SELECT id FROM system_permissions WHERE id = ?';
+    const checkResult = await pool.query(checkQuery, [id]);
+    if (checkResult.length === 0) {
+      return res.status(404).send(`SystemPermissions with id ${id} not found`);
+    }
+
+    // Build dynamic update query
+    let sqlQuery = 'UPDATE system_permissions SET ';
+    let updateFields = [];
+    for (let field in updates) {
+      updateFields.push(`${field} = ?`);
+    }
+    sqlQuery += updateFields.join(', ');
+    sqlQuery += ' WHERE id = ?';
+
+    // Build parameters array for query
+    let params = [];
+    for (let field in updates) {
+      params.push(updates[field]);
+    }
+    params.push(id);
+
+    // Execute update query
+    const result = await pool.query(sqlQuery, params);
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+// DELETE route to delete a systemPermissions by id.
+router.delete('/:id/deletesystempermissions', async function(req, res) {
+  try {
+    const { id } = req.params;
+
+    // Check if systemPermissions exists
+    const checkQuery = 'SELECT id FROM system_permissions WHERE id = ?';
+    const checkResult = await pool.query(checkQuery, [id]);
+    if (checkResult.length === 0) {
+      return res.status(404).send(`SystemPermissions with id ${id} not found`);
+    }
+
+    // Delete systemPermissions
+    const sqlQuery = 'DELETE FROM system_permissions WHERE id = ?';
+    const result = await pool.query(sqlQuery, [id]);
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
 
 
 module.exports = router;

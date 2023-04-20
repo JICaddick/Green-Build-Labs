@@ -25,50 +25,7 @@ router.get('/:id/getprojectbyid', async function(req, res) {
   }
 });
 
-// POST route to create new project ADD created_by to table in database.
-
-// comments here were from attempts to verify the user exists before creating a project. This isn't necessary though as there won't be an option to create a project unless the user is logged in. Thinking about it though, that route will need protection at somer point. 
-
-// ATTEMPT 1
-// router.post('/createproject', async function(req, res) {
-//   try {
-//     const {name, start_date, end_date} = req.body;
-//     const userId = req.user.id;
-
-//     // check if user exists
-//     const checkQuery = 'SELECT id FROM users WHERE id=?';
-//     const checkResult = await pool.query(checkQuery, [userId]);
-//     if (checkResult.length === 0) {
-//       return res.status(404).send(`Sign up to create project`);
-//     }
-    
-//     const sqlQuery = 'INSERT INTO project (name, start_date, end_date, user_id) VALUES (?, ?, ?, ?)';
-//     const result = await pool.query(sqlQuery, [name, start_date, end_date, userId]);
-
-//     res.status(200).json(result);
-//   } catch (error) {
-//     res.status(400).send(error.message)
-//   }
-// });
-
-//ATTEMPT 2
-// router.post('/createproject', async function(req, res) {
-//   try {
-//     const {name, start_date, end_date} = req.body;
-// const userId = req.user && req.user.id;
-// if (!userId) {
-//   return res.status(401).send('Unauthorized');
-// }
-   
-//     const sqlQuery = 'INSERT INTO project (name, start_date, end_date, user_id) VALUES (?, ?, ?, ?)';
-//     const result = await pool.query(sqlQuery, [name, start_date, end_date, userId]);
-
-//     res.status(200).json(result);
-//   } catch (error) {
-//     res.status(400).send(error.message)
-//   }
-// });
-
+// POST route to create new project.
 router.post('/createproject', async function(req, res) {
   try {
     const {name, start_date, end_date, user_id} = req.body;
