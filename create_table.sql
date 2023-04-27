@@ -67,7 +67,7 @@ CREATE TABLE `project_materials` (
   `project_id` int(11) NOT NULL,
   `material_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `total` int(11) DEFAULT NULL,
+  `total` decimal(10,2) DEFAULT NULL,
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` enum('timber','cement','glass') DEFAULT NULL,
   `unit` enum('kgs','l') DEFAULT NULL,
@@ -86,7 +86,7 @@ COLLATE=utf8mb4_general_ci;
 CREATE TABLE `project_carbon_emissions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `project_id` int(11) NOT NULL,
-  `total_carbon_emissions` varchar(50) DEFAULT NULL,
+  `total_carbon_emissions` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `project_carbon_emissions_FK` (`project_id`),
   CONSTRAINT `project_carbon_emissions_FK` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`)
