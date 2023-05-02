@@ -10,12 +10,17 @@ var materialsRouter = require('./routes/materials');
 var systemPermissionsRouter = require('./routes/systemPermissions');
 var projectMaterialsRouter = require('./routes/projectMaterials');
 var projectCarbonEmissionsRouter = require('./routes/projectCarbonEmissions');
+const bodyParser = require('body-parser');
 
 dotenv.config( {path: '.env'})
 
 const PORT = process.env.PORT || 8001;
 
 var app = express();
+
+// we need deez two?
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use(logger('dev'));
 app.use(express.json());
