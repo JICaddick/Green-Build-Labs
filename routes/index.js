@@ -1,5 +1,4 @@
 var express = require('express');
-var users = require('./user');
 var router = express.Router();
 
 const app = express();
@@ -7,8 +6,6 @@ const app = express();
 app.get ('/', (req, res) => {
   res.status(200).json({name:'James', says: 'Hello World'});
 });
-
-app.use ('/users', users);
 
 module.exports = router;
 

@@ -12,7 +12,7 @@ DEFAULT CHARSET=utf8mb4
 COLLATE=utf8mb4_general_ci;
 
 /*system_permissions*/
-REATE TABLE `system_permissions` (
+CREATE TABLE `system_permissions` (
   `project_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
