@@ -35,12 +35,8 @@ async function updateSystemPermissions(req, res) {
     const { id } = req.params;
     const { ...updates } = req.body; // Use spread operator to get all fields from req.body
 
-    const result = await systemPermissionsModel.updateSystemPermissions(id, updates);
-    if (result.affectedRows === 0) {
-      return res.status(404).send(`SystemPermissions with id ${id} not found`);
-    }
-    
-    res.status(200).json(result);
+    await SystemPermissions.updateSystemPermissions(id, updates);    
+    res.status(200).json(`SystemPermissions with id ${id} successfully updated`);
   } catch (error) {
     res.status(400).send(error.message);
   }
