@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const userController = require('../controllers/UserController');
+// This file defines CRUD routes using the Express router. Each route is linked to corresponding controllers. The URL is defined in the first argument, and the controller function is defined in the second argument. Routes give the a browser a way to access the functions in the controller.
 
-// CRUD routes for project table
+// CRUD routes for user table
+
 //GET route to get all users.
 router.get('/getallusers', userController.getAllUsers); 
 
