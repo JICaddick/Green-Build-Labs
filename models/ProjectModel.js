@@ -16,7 +16,7 @@ class Project {
     return rows;
   }
 
-// model for project registration
+// model for creating new project
   static async createProject(name, start_date, end_date, user_id) {
     const sqlQuery = 'INSERT INTO project (name, start_date, end_date, user_id) VALUES (?, ?, ?, ?)';
     const result = await pool.query(sqlQuery, [name, start_date, end_date, user_id]);
