@@ -22,8 +22,8 @@ async function getMaterial(req, res) {
 async function addMaterial(req, res) {
   try {
     const { name, unit, carbon_emissions_per_unit } = req.body;
-    const rows = await Material.addMaterial(name, unit, carbon_emissions_per_unit);
-    res.status(200).json(rows);
+    await Material.addMaterial(name, unit, carbon_emissions_per_unit);
+    res.status(200).json(`New material, ${name}, successfully created`);
   } catch (error) {
     res.status(400).send(error.message)
   }

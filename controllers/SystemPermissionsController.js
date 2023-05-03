@@ -23,9 +23,8 @@ async function createSystemPermissions(req, res) {
   try {
     const { user_id, project_id } = req.body;
     await SystemPermissions.createSystemPermissions(user_id, project_id);
-    res.status(200).send(`SystemPermissions successfully created`);
-  } 
-  catch (error) {
+    res.status(200).send(`New system permissions record successfully created`);
+  } catch (error) {
     res.status(400).send(error.message)
   }
 }

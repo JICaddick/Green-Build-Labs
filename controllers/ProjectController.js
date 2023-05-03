@@ -22,8 +22,8 @@ async function getProjectById(req, res) {
 async function createProject(req, res) {
   try {
     const { name, start_date, end_date, user_id } = req.body;
-    const rows = await Project.createProject(name, start_date, end_date, user_id);
-    res.status(200).json(rows);
+    await Project.createProject(name, start_date, end_date, user_id);
+    res.status(200).json(`New project created with name ${name}, let's get to work!`);
   } catch (error) {
     res.status(400).send(error.message)
   }

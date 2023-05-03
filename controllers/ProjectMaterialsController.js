@@ -21,8 +21,8 @@ async function getProjectMaterialsById(req, res) {
 async function createProjectMaterials(req, res) {
   try {
     const {project_id, material_id, quantity} = req.body;
-    const result = await ProjectMaterials.createProjectMaterials(project_id, material_id, quantity);
-    res.status(200).json(result);
+    await ProjectMaterials.createProjectMaterials(project_id, material_id, quantity);
+    res.status(200).json(`Material successfully added to project`);
   } catch (error) {
     res.status(400).send(error.message)
   }
