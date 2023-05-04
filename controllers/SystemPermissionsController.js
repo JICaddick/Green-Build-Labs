@@ -32,7 +32,7 @@ async function createSystemPermissions(req, res) {
 async function updateSystemPermissions(req, res) {
   try {
     const { id } = req.params;
-    const { ...updates } = req.body; // Use spread operator to get all fields from req.body
+    const { ...updates } = req.body; // Use spread operator to get all fields from req.body. Contractor can edit as many fields as needed/ permitted. 
 
     await SystemPermissions.updateSystemPermissions(id, updates);    
     res.status(200).json(`SystemPermissions with id ${id} successfully updated`);

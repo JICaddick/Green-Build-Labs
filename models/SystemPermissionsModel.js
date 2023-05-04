@@ -34,6 +34,14 @@ class SystemPermissions {
     let sqlQuery = 'UPDATE system_permissions SET ';
     let updateFields = [];
     let params = [];
+
+    // check if system_permissions record exists
+    const checkQuery = 'SELECT id FROM system_permissions WHERE id=?';
+    const checkResult = await pool.query(checkQuery, [id]);
+    if (checkResult.length === 0) {
+      throw new Error(`Project with id ${id} not found`);
+    }
+
     for (let field in updates) {
       updateFields.push(`${field} = ?`);
       params.push(updates[field]);
