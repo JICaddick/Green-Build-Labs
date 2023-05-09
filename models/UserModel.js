@@ -4,9 +4,9 @@ const bcrypt = require('bcrypt');
 class User {
 
 // model for getting all users
-  static async getAllUsers() {
-    const sqlQuery = 'SELECT id, email, password, created_at, role FROM users';
-    const rows = await pool.query(sqlQuery);
+  static async getAllUsers(userId) {
+    const sqlQuery = 'SELECT id, email, password, created_at, role FROM users WHERE user_id=?';
+    const rows = await pool.query(sqlQuery, [userId]);
     return rows;
   }
 

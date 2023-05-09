@@ -23,20 +23,24 @@ router.delete('/:id/deleteuser', userController.deleteUser);
 module.exports = router;
 
 // internally handled authentication
-// router.post('/login', async function(req,res) {
-//   try {
-//       const {id,password} = req.body;
+router.post('/login', async function(req,res) {
+    try {
+        const { id, password } = req.body;
+        const sqlGetUser = 'SELECT id, email, password, created_at, role FROM users WHERE id=?';
+        const rows = await pool.query(sqlGetUser, id);
 
-//       const sqlGetUser = 'SELECT password FROM user WHERE id=?';
-//       const rows = await pool.query(sqlGetUser,id);
-//       if(rows){
-          
-//           const isValid = await bcrypt.compare(password,rows[0].password)
-//           res.status(200).json({valid_password: isValid});
-//       }
-//       res.status(200).send(`User with id ${id} was not found`);
-      
-//   } catch (error) {
-//       res.status(400).send(error.message)
-//   }
-// })
+        if (rows.length > 0) {
+            const isValid = await bcrypt.compare(password, rows[0].password);
+
+            if (isValid) {
+            res.status(200).json({ valid_password: true });
+            } else {
+            res.status(401).json({ valid_password: false });
+            }
+        } else {
+            res.status(404).send(`User with id ${id} was not found`);
+        }
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+});
