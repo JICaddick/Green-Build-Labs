@@ -5,7 +5,8 @@ const User = require('../models/UserModel');
 
 async function getAllUsers(req, res) {
   try {
-    const rows = await User.getAllUsers();
+    const { id } = req.params;
+    const rows = await User.getAllUsers(id);
     res.status(200).json(rows);
   } catch (error) {
     res.status(400).send(error.message)

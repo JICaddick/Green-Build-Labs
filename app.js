@@ -11,6 +11,7 @@ var systemPermissionsRouter = require('./routes/systemPermissions');
 var projectMaterialsRouter = require('./routes/projectMaterials');
 var projectCarbonEmissionsRouter = require('./routes/projectCarbonEmissions');
 const bodyParser = require('body-parser');
+const { authenticateUser } = require('./helpers/authMiddleware')
 
 dotenv.config( {path: '.env'})
 
@@ -29,6 +30,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('public')) //Why dis commented out? GPT - if you uncomment it, it will serve any files in the public directory at the root URL of your server.
 
+// Apply the authenticateUser middleware to all routes
+app.use(authenticateUser);
 
 //Routes
 app.use('/', indexRouter);
