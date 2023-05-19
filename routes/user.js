@@ -6,11 +6,11 @@ const { authenticateUser } = require('../helpers/authMiddleware')
 
 // CRUD routes for user table
 
-//GET route to get all users.(scoped to the authenticated user) - This is not currently useful, it will become useful when 'contractors' can add contractor_team users.
+//GET route to get all users (scoped to the authenticated user) - This is not currently useful, it will become useful when 'contractors' can add contractor_team users.
 router.get('/getallusers', authenticateUser, userController.getAllUsers); 
 
-// GET route to get a user by id.
-router.get('/:id/getuserbyid', userController.getUserById);
+// GET route to get a user by id (scoped to the authenticated user).
+router.get('/:id/getuserbyid', authenticateUser, userController.getUserById);
 
 // POST route to create new user
 router.post('/register', userController.createUser);
