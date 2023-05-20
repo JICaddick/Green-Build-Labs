@@ -88,3 +88,9 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+// The "www" file is typically responsible for creating and configuring the HTTP server that will listen for incoming requests and handle them using your Express application. It sets up the server, defines the port to listen on, and starts the server.
+
+// The reason for having a separate file like "www" instead of directly starting your application from the main file (e.g., "app.js" or "index.js") is to provide a clear separation of concerns and to allow for more flexibility in your application's architecture.
+
+// By separating the server setup into its own file, you can encapsulate server-specific logic, such as setting up HTTPS, handling server options, or configuring middleware specific to the server. It helps to keep your main application file focused on defining the routes, middleware, and other business logic related to your application's functionality.
