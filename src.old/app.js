@@ -3,15 +3,14 @@ var path = require('path');
 const dotenv = require('dotenv');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var indexRouter = require('../routes/index');
-var userRouter = require('../routes/user');
-var projectRouter = require('../routes/project');
-var materialsRouter = require('../routes/materials');
-var systemPermissionsRouter = require('../routes/systemPermissions');
-var projectMaterialsRouter = require('../routes/projectMaterials');
-var projectCarbonEmissionsRouter = require('../routes/projectCarbonEmissions');
+var userRouter = require('./routes/user');
+var projectRouter = require('./routes/project');
+var materialsRouter = require('./routes/materials');
+var systemPermissionsRouter = require('./routes/systemPermissions');
+var projectMaterialsRouter = require('./routes/projectMaterials');
+var projectCarbonEmissionsRouter = require('./routes/projectCarbonEmissions');
 const bodyParser = require('body-parser');
-const { authenticateUser } = require('../helpers/authMiddleware')
+const { authenticateUser } = require('./helpers/authMiddleware')
 
 dotenv.config( {path: '.env'})
 
@@ -34,7 +33,6 @@ app.use(express.static('public')) //Why dis commented out? GPT - if you uncommen
 app.use(authenticateUser);
 
 //Routes
-app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/project', projectRouter);
 app.use('/materials', materialsRouter);
