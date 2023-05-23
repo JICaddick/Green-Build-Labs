@@ -1,4 +1,4 @@
-import { pool } from "../helpers/database"
+const pool = require('../helpers/database');
 
 class SystemPermissions {
 // model for checking if systemPermissions exists
