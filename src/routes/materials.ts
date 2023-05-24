@@ -1,6 +1,7 @@
-var express = require('express');
-var router = express.Router();
-const materialController = require('../controllers/MaterialsController');
+import express, { Router } from 'express';
+import * as materialController from '../controllers/MaterialsController';
+
+const router: Router = express.Router();
 
 //CRUD routes for materials table
 //GET route to get all materials.
@@ -18,4 +19,4 @@ router.put('/:id/updatematerial', materialController.updateMaterial);
 // DELETE route to delete material
 router.delete('/:id/deletematerial', materialController.deleteMaterial);
 
-module.exports = router;
+export default router;

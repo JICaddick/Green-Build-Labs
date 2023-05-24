@@ -1,6 +1,7 @@
-var express = require('express');
-var router = express.Router();
-const projectController = require('../controllers/ProjectController');
+import express, { Router } from 'express';
+import * as projectController from '../controllers/ProjectController';
+
+const router: Router = express.Router();
 
 // CRUD routes for project table
 // GET route to get all projects.
@@ -18,4 +19,4 @@ router.put('/:id/updateproject', projectController.updateProject);
 // DELETE route to delete project
 router.delete('/:id/deleteproject', projectController.deleteProject);
 
-module.exports = router;
+export default router;

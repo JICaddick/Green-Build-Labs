@@ -1,6 +1,7 @@
-var express = require('express');
-var router = express.Router();
-const projectCarbonEmissionsController = require('../controllers/ProjectCarbonEmissionsController');
+import express, { Router } from 'express';
+import * as  projectCarbonEmissionsController  from '../controllers/ProjectCarbonEmissionsController';
+
+const router: Router = express.Router();
 
 // CRUD routes for project_carbon_emissions table
 // GET route to get all project_carbon_emissions.
@@ -18,4 +19,4 @@ router.put('/:id/updateprojectcarbonemissions', projectCarbonEmissionsController
 // DELETE route to delete project_carbon_emissions by id.
 router.delete('/:id/deleteprojectcarbonemissions', projectCarbonEmissionsController.deleteProjectCarbonEmissions);
 
-module.exports = router;
+export default router;

@@ -4,13 +4,13 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import userRouter from './routes/user';
-var projectRouter = require('./routes/project');
-var materialsRouter = require('./routes/materials');
+import projectRouter from './routes/project';
+import materialsRouter from './routes/materials';
 import systemPermissionsRouter from './routes/systemPermissions';
-var projectMaterialsRouter = require('./routes/projectMaterials');
-var projectCarbonEmissionsRouter = require('./routes/projectCarbonEmissions');
-// import bodyParser from 'body-parser';
+import projectMaterialsRouter from './routes/projectMaterials';
+import projectCarbonEmissionsRouter from './routes/projectCarbonEmissions';
 import { authenticateUser } from './helpers/authMiddleware';
+// import bodyParser from 'body-parser';
 
 dotenv.config( {path: '.env'})
 
@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static('public')) //Why dis commented out? GPT - if you uncomment it, it will serve any files in the public directory at the root URL of your server.
+app.use(express.static('public'))
 
 // Apply the authenticateUser middleware to all routes
 app.use(authenticateUser);
