@@ -1,4 +1,4 @@
-const pool = require('../helpers/database');
+import { pool } from "../helpers/database"
 
 class ProjectCarbonEmissions {
   // model for getting all project_carbon_emissions

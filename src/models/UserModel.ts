@@ -1,5 +1,5 @@
-const pool = require('../helpers/database');
-const bcrypt = require('bcrypt');
+import { pool } from "../helpers/database"
+import bcrypt from "bcrypt"
 // This file defines the model which is used to interact with it's respective table in the database. It contains static methods for accessing the project table in the database
 class User {
 
