@@ -1,9 +1,10 @@
-const User = require('../models/UserModel');
+import { Request, Response } from 'express';
+import User from '../models/UserModel';
 
 // This file defines the functions for each CRUD operation on the user table. Each function receives a request object and a response object and uses it's respective model to perform the appropriate database operation.
 // They are the functions that serve as the route handlers for the user API. These functions call the corresponding static methods in the Project class and return the results to the client. 
 
-async function getAllUsers(req, res) {
+export async function getAllUsers(req: Request, res: Response) {
   try {
     const { id } = req.query;
     const rows = await User.getAllUsers(id);
@@ -13,7 +14,7 @@ async function getAllUsers(req, res) {
   }
 }
 
-async function getUserById(req, res) {
+export async function getUserById(req: Request, res: Response) {
   try {
     const { id } = req.params;
     const rows = await User.getUserById(id);
@@ -23,7 +24,7 @@ async function getUserById(req, res) {
   }
 }
 
-async function createUser(req, res) {
+export async function createUser(req: Request, res: Response) {
   try {
     const { email, password, role } = req.body;
     await User.createUser(email, password, role);
@@ -33,7 +34,7 @@ async function createUser(req, res) {
   }
 }
 
-async function updateUser(req, res) {
+export async function updateUser(req: Request, res: Response) {
   try {
     const { id } = req.params;
     const { email, password, role } = req.body;
@@ -44,7 +45,7 @@ async function updateUser(req, res) {
   }
 }
 
-async function deleteUser(req, res) {
+export async function deleteUser(req: Request, res: Response) {
   try {
     const { id } = req.params;
     await User.deleteUser(id);
@@ -54,7 +55,7 @@ async function deleteUser(req, res) {
   }
 }
 
-module.exports = {
+export default {
   getAllUsers,
   getUserById,
   createUser,
