@@ -6,7 +6,7 @@ import logger from 'morgan';
 import userRouter from './routes/user';
 var projectRouter = require('./routes/project');
 var materialsRouter = require('./routes/materials');
-var systemPermissionsRouter = require('./routes/systemPermissions');
+import systemPermissionsRouter from './routes/systemPermissions';
 var projectMaterialsRouter = require('./routes/projectMaterials');
 var projectCarbonEmissionsRouter = require('./routes/projectCarbonEmissions');
 const bodyParser = require('body-parser');

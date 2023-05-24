@@ -1,6 +1,7 @@
-var express = require('express');
-var router = express.Router();
-const systemPermissionsController = require('../controllers/SystemPermissionsController');
+import express, { Router } from 'express';
+import * as systemPermissionsController from '../controllers/SystemPermissionsController';
+
+const router: Router = express.Router();
 
 // CRUD routes for systemPermissions table
 // GET route to get all systemPermissions.
@@ -18,4 +19,4 @@ router.put('/:id/updatesystempermissions', systemPermissionsController.updateSys
 // DELETE route to delete a systemPermissions by id.
 router.delete('/:id/deletesystempermissions', systemPermissionsController.deleteSystemPermissions);
 
-module.exports = router;
+export default router;
