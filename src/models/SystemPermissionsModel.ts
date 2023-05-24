@@ -84,4 +84,4 @@ class SystemPermissions {
   }
 }
 
-module.exports = SystemPermissions;
+export default SystemPermissions;

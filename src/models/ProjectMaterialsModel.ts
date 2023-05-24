@@ -66,4 +66,4 @@ class ProjectMaterials {
   }
 }
 
-module.exports = ProjectMaterials;
+export default ProjectMaterials;

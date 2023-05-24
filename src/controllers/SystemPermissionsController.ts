@@ -1,6 +1,7 @@
-const SystemPermissions = require('../models/SystemPermissionsModel');
+import { Request, Response } from 'express';
+import SystemPermissions from '../models/SystemPermissionsModel';
 
-async function getAllSystemPermissions(req, res) {
+export async function getAllSystemPermissions(req: Request, res: Response) {
   try {
     const rows = await SystemPermissions.getAllSystemPermissions();
     res.status(200).json(rows);
@@ -9,7 +10,7 @@ async function getAllSystemPermissions(req, res) {
   }
 }
 
-async function getSystemPermissionsById(req, res) {
+export async function getSystemPermissionsById(req: Request, res: Response) {
   try {
     const { id } = req.params;
     const rows = await SystemPermissions.getSystemPermissionsById(id);
@@ -19,7 +20,7 @@ async function getSystemPermissionsById(req, res) {
   }
 }
 
-async function createSystemPermissions(req, res) {
+export async function createSystemPermissions(req: Request, res: Response) {
   try {
     const { user_id, project_id } = req.body;
     await SystemPermissions.createSystemPermissions(user_id, project_id);
@@ -29,7 +30,7 @@ async function createSystemPermissions(req, res) {
   }
 }
 
-async function updateSystemPermissions(req, res) {
+export async function updateSystemPermissions(req: Request, res: Response) {
   try {
     const { id } = req.params;
     const { ...updates } = req.body; // Use spread operator to get all fields from req.body. Contractor can edit as many fields as needed/ permitted. 
@@ -41,7 +42,7 @@ async function updateSystemPermissions(req, res) {
   }
 };
 
-async function deleteSystemPermissions(req, res) {
+export async function deleteSystemPermissions(req: Request, res: Response) {
   try {
     const { id } = req.params;
     await SystemPermissions.deleteSystemPermissions(id);
@@ -51,7 +52,7 @@ async function deleteSystemPermissions(req, res) {
   }
 }
 
-module.exports = {
+export default {
   getAllSystemPermissions,
   getSystemPermissionsById,
   createSystemPermissions,

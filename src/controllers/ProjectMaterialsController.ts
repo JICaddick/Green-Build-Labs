@@ -1,6 +1,7 @@
-const ProjectMaterials = require('../models/ProjectMaterialsModel');
+import { Request, Response } from 'express';
+import ProjectMaterials from '../models/ProjectMaterialsModel';
 
-async function getAllProjectMaterials(req, res) {
+export async function getAllProjectMaterials(req: Request, res: Response) {
   try {
     const rows = await ProjectMaterials.getAllProjectMaterials();
     res.status(200).json(rows);
@@ -9,7 +10,7 @@ async function getAllProjectMaterials(req, res) {
   }
 }
 
-async function getProjectMaterialsById(req, res) {
+export async function getProjectMaterialsById(req: Request, res: Response) {
   try {
     const rows = await ProjectMaterials.getProjectMaterialsById(req.params.id);
     res.status(200).json(rows);
@@ -18,7 +19,7 @@ async function getProjectMaterialsById(req, res) {
   }
 }
 
-async function createProjectMaterials(req, res) {
+export async function createProjectMaterials(req: Request, res: Response) {
   try {
     const {project_id, material_id, quantity} = req.body;
     await ProjectMaterials.createProjectMaterials(project_id, material_id, quantity);
@@ -28,7 +29,7 @@ async function createProjectMaterials(req, res) {
   }
 }
 
-async function updateProjectMaterials(req, res) {
+export async function updateProjectMaterials(req: Request, res: Response) {
   try {
     const { id } = req.params;
     const {project_id, material_id, quantity} = req.body;
@@ -39,7 +40,7 @@ async function updateProjectMaterials(req, res) {
   }
 }
 
-async function deleteProjectMaterials(req, res) {
+export async function deleteProjectMaterials(req: Request, res: Response) {
   try {
     const { id } = req.params;
     await ProjectMaterials.deleteProjectMaterials(id);
@@ -49,7 +50,7 @@ async function deleteProjectMaterials(req, res) {
   }
 }
 
-module.exports = {
+export default {
   getAllProjectMaterials,
   getProjectMaterialsById,
   createProjectMaterials,

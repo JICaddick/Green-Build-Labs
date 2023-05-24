@@ -1,6 +1,7 @@
-const Project = require('../models/ProjectModel');
+import { Request, Response } from 'express';
+import Project from '../models/ProjectModel';
 
-async function getAllProjects(req, res) {
+export async function getAllProjects(req: Request, res: Response) {
   try {
     const rows = await Project.getAllProjects();
     res.status(200).json(rows);
@@ -9,7 +10,7 @@ async function getAllProjects(req, res) {
   }
 }
 
-async function getProjectById(req, res) {
+export async function getProjectById(req: Request, res: Response) {
   try {
     const { id } = req.params;
     const rows = await Project.getProjectById(id);
@@ -19,7 +20,7 @@ async function getProjectById(req, res) {
   }
 }
 
-async function createProject(req, res) {
+export async function createProject(req: Request, res: Response) {
   try {
     const { name, start_date, end_date, user_id } = req.body;
     await Project.createProject(name, start_date, end_date, user_id);
@@ -29,7 +30,7 @@ async function createProject(req, res) {
   }
 }
 
-async function updateProject(req, res) {
+export async function updateProject(req: Request, res: Response) {
   try {
     const { id } = req.params;
     const { name, start_date, end_date, user_id } = req.body;
@@ -40,7 +41,7 @@ async function updateProject(req, res) {
   }
 }
 
-async function deleteProject(req, res) {
+export async function deleteProject(req: Request, res: Response) {
   try {
     const { id } = req.params;
     await Project.deleteProject(id);
@@ -50,7 +51,7 @@ async function deleteProject(req, res) {
   }
 }
 
-module.exports = {
+export default {
   getAllProjects,
   getProjectById,
   createProject,

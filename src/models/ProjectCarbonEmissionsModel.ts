@@ -51,4 +51,4 @@ class ProjectCarbonEmissions {
   }
 }
 
-module.exports = ProjectCarbonEmissions;
+export default ProjectCarbonEmissions;

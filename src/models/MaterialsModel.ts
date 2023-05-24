@@ -1,3 +1,4 @@
+import e from "express";
 import { pool } from "../helpers/database"
 
 class Material {
@@ -52,4 +53,4 @@ class Material {
   }
 }
 
-module.exports = Material;
+export default Material;

@@ -1,6 +1,7 @@
-const Material = require('../models/MaterialsModel');
+import { Request, Response } from 'express';
+import Material from '../models/MaterialsModel';
 
-async function getAllMaterials(req, res) {
+export async function getAllMaterials(req: Request, res: Response) {
   try {
     const rows = await Material.getAllMaterials();
     res.status(200).json(rows);
@@ -9,7 +10,7 @@ async function getAllMaterials(req, res) {
   }
 }
 
-async function getMaterial(req, res) {
+export async function getMaterial(req: Request, res: Response) {
   try {
     const { id } = req.params;
     const rows = await Material.getMaterial(id);
@@ -19,7 +20,7 @@ async function getMaterial(req, res) {
   }
 }
 
-async function addMaterial(req, res) {
+export async function addMaterial(req: Request, res: Response) {
   try {
     const { name, unit, carbon_emissions_per_unit } = req.body;
     await Material.addMaterial(name, unit, carbon_emissions_per_unit);
@@ -29,7 +30,7 @@ async function addMaterial(req, res) {
   }
 }
 
-async function updateMaterial(req, res) {
+export async function updateMaterial(req: Request, res: Response) {
   try {
     const { id } = req.params;
     const { name, unit, carbon_emissions_per_unit } = req.body;
@@ -40,7 +41,7 @@ async function updateMaterial(req, res) {
   }
 }
 
-async function deleteMaterial(req, res) {
+export async function deleteMaterial(req: Request, res: Response) {
   try {
     const { id } = req.params;
     await Material.deleteMaterial(id);
@@ -50,7 +51,7 @@ async function deleteMaterial(req, res) {
   }
 }
 
-module.exports = {
+export default {
   getAllMaterials,
   getMaterial,
   addMaterial,

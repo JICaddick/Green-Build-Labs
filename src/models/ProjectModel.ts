@@ -52,4 +52,4 @@ class Project {
   }
 }
 
-module.exports = Project;
+export default Project;
