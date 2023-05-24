@@ -1,9 +1,9 @@
-var express = require('express');
-var path = require('path');
-const dotenv = require('dotenv');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var userRouter = require('./routes/user');
+import express, { Express, Request, Response } from 'express';
+import path from 'path';
+import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+import userRouter from './routes/user';
 var projectRouter = require('./routes/project');
 var materialsRouter = require('./routes/materials');
 var systemPermissionsRouter = require('./routes/systemPermissions');
