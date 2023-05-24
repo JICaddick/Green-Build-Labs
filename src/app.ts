@@ -9,19 +9,17 @@ var materialsRouter = require('./routes/materials');
 import systemPermissionsRouter from './routes/systemPermissions';
 var projectMaterialsRouter = require('./routes/projectMaterials');
 var projectCarbonEmissionsRouter = require('./routes/projectCarbonEmissions');
-const bodyParser = require('body-parser');
-const { authenticateUser } = require('./helpers/authMiddleware')
+// import bodyParser from 'body-parser';
+import { authenticateUser } from './helpers/authMiddleware';
 
 dotenv.config( {path: '.env'})
 
-const PORT = process.env.PORT || 8001;
+const PORT: number = parseInt(process.env.PORT as string, 10) || 8001;
 
 var app = express();
 
-// we need deez two?
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -44,4 +42,4 @@ app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
 
-module.exports = app;
+export default app;
