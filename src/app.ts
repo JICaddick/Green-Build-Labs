@@ -14,7 +14,12 @@ import projectCarbonEmissionsRouter from './routes/projectCarbonEmissions';
 
 dotenv.config( {path: '.env'})
 
-const PORT: number = parseInt(process.env.PORT as string, 10) || 8001;
+let PORT: number = parseInt(process.env.PORT as string, 10) || 8001;
+
+// Check if running in a test environment
+if (process.env.NODE_ENV === 'test') {
+  PORT = 8002; // Use a different port for tests
+}
 
 var app = express();
 
