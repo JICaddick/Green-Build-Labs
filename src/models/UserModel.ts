@@ -4,9 +4,9 @@ import bcrypt from "bcrypt"
 class User {
 
 // model for getting all users
-  static async getAllUsers(id) {
-    const sqlQuery = 'SELECT id, email, password, created_at, role FROM users WHERE id=?';
-    const rows = await pool.query(sqlQuery, [id]);
+  static async getAllUsers() {
+    const sqlQuery = 'SELECT * FROM users';
+    const rows = await pool.query(sqlQuery);
     return rows;
   }
 

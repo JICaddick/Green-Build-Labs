@@ -9,7 +9,7 @@ import materialsRouter from './routes/materials';
 import systemPermissionsRouter from './routes/systemPermissions';
 import projectMaterialsRouter from './routes/projectMaterials';
 import projectCarbonEmissionsRouter from './routes/projectCarbonEmissions';
-import { authenticateUser } from './helpers/authMiddleware';
+// import { authenticateUser } from './helpers/authMiddleware';
 // import bodyParser from 'body-parser';
 
 dotenv.config( {path: '.env'})
@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('public'))
 
 // Apply the authenticateUser middleware to all routes
-app.use(authenticateUser);
+// app.use(authenticateUser);
 
 //Routes
 app.use('/user', userRouter);

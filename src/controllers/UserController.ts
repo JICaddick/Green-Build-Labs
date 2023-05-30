@@ -6,8 +6,7 @@ import User from '../models/UserModel';
 
 export async function getAllUsers(req: Request, res: Response) {
   try {
-    const { id } = req.query;
-    const rows = await User.getAllUsers(id);
+    const rows = await User.getAllUsers();
     res.status(200).json(rows);
   } catch (error) {
     res.status(400).send(error.message)
