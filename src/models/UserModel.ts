@@ -14,6 +14,9 @@ class User {
   static async getUserById(id) {
     const sqlQuery = 'SELECT id, email, password, created_at, role FROM users WHERE id=?';
     const rows = await pool.query(sqlQuery, id);
+    if (rows.length === 0) {
+      throw new Error(`User with id ${id} not found`);
+    }
     return rows;
   }
 
