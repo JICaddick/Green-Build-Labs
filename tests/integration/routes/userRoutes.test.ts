@@ -85,7 +85,7 @@ describe('User Routes', () => {
   });
 
   it('should delete a user', async () => {
-    const userToDelete = user.find(userObj => userObj.id === 81); // Find the user with ID X
+    const userToDelete = user.find(userObj => userObj.id === 86); // Find the user with ID X
     const response = await request(app).delete(`/user/${userToDelete.id}/deleteuser`);
     expect(response.status).toBe(200); // check that the delete was successful
     const deletedUserResponse = await request(app).get(`/user/${userToDelete.id}/getuserbyid`);

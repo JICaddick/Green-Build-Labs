@@ -44,8 +44,8 @@ app.use('/systemPermissions', systemPermissionsRouter);
 app.use('/projectMaterials', projectMaterialsRouter);
 app.use('/projectCarbonEmissions', projectCarbonEmissionsRouter);
 
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server listening on port ${PORT}`);
+// });
 
 export default app;
